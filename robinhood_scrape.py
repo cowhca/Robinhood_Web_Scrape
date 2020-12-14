@@ -87,7 +87,6 @@ if(num_args == 1): # Normal Execution
     if(headless):
         opts.add_argument('headless')
 
-    os.system("ls")
     browser = webdriver.Chrome('./chromedriver.exe', options = opts)
     browser.get('https://robinhood.com/account')
 
@@ -118,7 +117,7 @@ if(num_args == 1): # Normal Execution
             correct_info = True
 
     leave = False
-    while(leave):
+    while(not leave):
         mfa = input("Enter the multi-factor authentication code.\n")
         mfa_text_box = browser.find_element_by_css_selector(".form-group:nth-child(1) input")
         # mfa_text_box = browser.find_element_by_xpath("//*[@id=\"react_root\"]/div[1]/div[2]/div/div/div[2]/div/div/form/div[2]/div[1]/label/div/input")
@@ -376,7 +375,7 @@ if(num_args == 1): # Normal Execution
     # Creating a variable to be used to name output file
     FILE_NAME = username + "_portfolio.xlsx"
 
-    print("Output saved to: " + FILE_NAME)
+    print("Trying to save to:\t" + FILE_NAME)
     saved = False
     while not saved: # Allow them to close the file if it is already open
         try:        
@@ -385,7 +384,8 @@ if(num_args == 1): # Normal Execution
         except PermissionError:
             print("Permission denied\nTry closing the file to allow it to be saved.\n")
             input("Press any key when you have closed the file.\n")
-        
+    print("Successfully saved to:\t" + FILE_NAME)    
+    
     wb.close()
     
 elif num_args == 2 and sys.argv[1] == 'addStock':
